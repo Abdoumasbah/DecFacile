@@ -1,0 +1,31 @@
+<ul>
+  <li (click)="loadDetails()">
+    {{ dictEntry.label }} <sub>{{ dictEntry.pos }}</sub> &#64;{{ dictEntry.language }}
+  </li>
+  <div *ngIf="detailedEntry as entry" >
+    <ul>
+      <li>
+        Forms:
+        <ul *ngIf="forms.length > 0">
+          <div *ngFor="let form of forms">
+            <div *ngIf="form.label">
+              <li>
+                {{ form.label }} ({{ sharedFunctionModel.extractLabelFromURI(form.pos) }})
+              </li>
+            </div>
+          </div>
+        </ul>
+      </li>
+    </ul>
+    <ul>
+      <li>Senses :</li>
+      <ul>
+        <ul *ngIf="entries">
+          <li *ngFor="let sense of entries" (click)="setSelectedSense(sense)">
+            {{ sense.label }}
+          </li>
+        </ul>
+      </ul>
+    </ul>
+  </div>
+</ul>

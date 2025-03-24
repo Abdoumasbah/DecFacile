@@ -1,0 +1,72 @@
+<div id="card">
+  <div id="inside_card">
+    <!-- Header Row -->
+    <div class="pair-row header-row">
+      <div class="col-md-5">
+        <p class="text">Lexical Function</p>
+      </div>
+      <div class="col-md-5">
+        <p class="text">Senses</p>
+      </div>
+      <div class="button-container">
+        <button class="add-button" (click)="addNewPair()">+</button>
+      </div>
+    </div>
+
+    <!-- Main LF-Sense Pair -->
+    <div *ngIf="additionalPairs.length === 0" class="pair-row">
+      <div class="col-md-5">
+        <input *ngIf="selectedLexicalFunction" type="text" [value]="selectedLexicalFunction" readonly class="readonly-input">
+        <select *ngIf="!selectedLexicalFunction" id="type" name="type" (change)="onLFChange($event)">
+          <option value="" selected>-- Select a Lexical Function --</option>
+          <option *ngFor="let type of getLexFunct()" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+
+      <div class="col-md-5">
+        <input *ngIf="selectedSenseTarget" type="text" [value]="selectedSenseTarget" readonly class="readonly-input">
+        <select *ngIf="!selectedSenseTarget" id="sense" name="sense" (change)="onSenseChange($event)">
+          <option value="" selected>-- Select a Sense --</option>
+          <option *ngFor="let sense of getSenses()" [value]="sense">{{ sense }}</option>
+        </select>
+      </div>
+
+      <!-- Delete Button for Main LF-Sense Pair -->
+      <div class="button-container">
+        <button class="remove-button" (click)="deleteLFAndSense()">✖</button>
+      </div>
+      <div *ngIf="selectedLexicalFunction && selectedSenseTarget" class="button-save">
+        <button class="save-button" (click)="createLFAndSense()">&#10004;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional LF-Sense Pairs -->
+  <div id="additional_pairs">
+    <div *ngFor="let pair of additionalPairs; let i = index" class="pair-row">
+      <div class="col-md-5">
+        <input *ngIf="pair.lexicalFunction" type="text" [value]="pair.lexicalFunction" readonly class="readonly-input">
+        <select *ngIf="!pair.lexicalFunction" name="additionalLF" (change)="onLFChangeForPair($event, pair)">
+          <option value="" selected>-- Select a Lexical Function --</option>
+          <option *ngFor="let type of getLexFunct()" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+
+      <div class="col-md-5">
+        <input *ngIf="pair.sense" type="text" [value]="pair.sense" readonly class="readonly-input">
+        <select *ngIf="!pair.sense" name="additionalSense" (change)="onSenseChangeForPair($event, pair)">
+          <option value="" selected>-- Select a Sense --</option>
+          <option *ngFor="let sense of getSenses()" [value]="sense">{{ sense }}</option>
+        </select>
+      </div>
+
+      <!-- Remove Button for Additional Pairs -->
+      <div class="button-container">
+        <button class="remove-button" (click)="removePair(i)">✖</button>
+      </div>
+      <div class="button-save">
+        <button class="save-button" (click)="createLFAndSense(pair)">&#10004;</button>
+      </div>
+    </div>
+  </div>
+</div>

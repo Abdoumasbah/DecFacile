@@ -1,0 +1,54 @@
+<body>
+<main class="main">
+  <!-- Header -->
+  <app-header></app-header>
+
+  <!-- Main Content -->
+  <div class="content">
+    <!-- Left Side -->
+    <div class="left-side">
+      <!-- Search Component -->
+      <div class="row">
+        <app-search [(search)]="search"
+                    [selectedLanguage]="selectedLanguage"
+                    (languageChanged)="selectedLanguage = $event">
+        </app-search>
+      </div>
+
+      <!-- Dictionary Entries -->
+      <div class="row">
+        <div id="card" class="tableScrollHeight">
+          <div id="inside_card">
+            @for (dictEntry of getECDEntries(); track dictEntry) {
+              <app-dict-entry
+                [dictEntry]="dictEntry"
+                [isSelected]="dictEntry.dictionaryEntry === selectedEntryId"
+                [detailedEntry]="dictEntry.dictionaryEntry === selectedEntryId ? detailedEntry : null"
+                (entrySelected)="loadDictEntry(dictEntry.dictionaryEntry)">
+              </app-dict-entry>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side -->
+    <div class="right-side">
+      <!-- Exemple Component -->
+      <div>
+        <app-exemple></app-exemple>
+      </div>
+
+      <!-- Lexical Governance -->
+      <div>
+        <app-lex-gov></app-lex-gov>
+      </div>
+
+      <!-- Lexical Function -->
+      <div>
+        <app-lexical-function></app-lexical-function>
+      </div>
+    </div>
+  </div>
+</main>
+</body>

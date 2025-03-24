@@ -1,0 +1,14 @@
+<div id="search">
+  <div id="search-bar">
+    <input placeholder="Search..." [(ngModel)]="search"/>
+  </div>
+  <div id="search-bar-l">
+    <select id="type" name="type" [(ngModel)]="selectedLanguage" (change)="updateLanguage($event)">
+      <option value=""></option>
+      @for (language of getECDEntriesType(); track language) {
+        <option [value]="language.label">{{ language.label }}</option>
+      }
+    </select>
+  </div>
+</div>
+
